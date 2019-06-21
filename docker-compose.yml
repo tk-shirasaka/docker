@@ -18,6 +18,15 @@ services:
       - ./nginx/server.crt:/etc/nginx/server.crt
       - ./nginx/server.key:/etc/nginx/server.key
 
+  dns:
+    image: andyshinn/dnsmasq
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 127.0.0.1:53:53/udp
+    extra_hosts:
+      - {DOMAIN_NAME}:0.0.0.0
+
   mysql:
     image: mysql
     volumes:
