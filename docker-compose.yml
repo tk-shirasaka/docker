@@ -12,20 +12,12 @@ services:
     volumes:
       - $HOST_ROOT/Desktop:/desktop
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/server.conf:/etc/nginx/server.conf
       - ./nginx/ssl.conf:/etc/nginx/ssl.conf
       - ./nginx/php.conf:/etc/nginx/php.conf
       - ./nginx/mime.types:/etc/nginx/mime.types
       - ./nginx/server.crt:/etc/nginx/server.crt
       - ./nginx/server.key:/etc/nginx/server.key
-
-  dns:
-    image: andyshinn/dnsmasq
-    cap_add:
-      - NET_ADMIN
-    ports:
-      - 127.0.0.1:53:53/udp
-    extra_hosts:
-      - {DOMAIN_NAME}:0.0.0.0
 
   mysql:
     image: mysql
