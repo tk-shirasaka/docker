@@ -6,11 +6,8 @@ services:
     links: ['nginx']
     ports:
       - 80:80
-      - 443:443
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./proxy/server.crt:/etc/nginx/certs/server.crt
-      - ./proxy/server.key:/etc/nginx/certs/server.key
 
   nginx:
     image: nginx:alpine
@@ -19,12 +16,10 @@ services:
       - $HOST_ROOT/Desktop:/desktop
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/server.conf:/etc/nginx/server.conf
-      - ./nginx/ssl.conf:/etc/nginx/ssl.conf
       - ./nginx/php.conf:/etc/nginx/php.conf
       - ./nginx/mime.types:/etc/nginx/mime.types
     environment:
-      - VIRTUAL_HOST=*.{{DOMAIN}}
-      - CERT_NAME=server
+      - VIRTUAL_HOST=*.localhost
 
   mysql:
     image: mysql
