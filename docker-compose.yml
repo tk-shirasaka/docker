@@ -43,3 +43,4 @@ services:
     volumes:
       - $HOST_ROOT/Desktop:/desktop
       - ./php/php.ini:/usr/local/etc/php/php.ini
+      - ./php/www.conf:/usr/local/etc/php-fpm.d/www.conf
