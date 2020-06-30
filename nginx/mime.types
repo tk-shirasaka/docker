@@ -2,12 +2,11 @@ types {
     text/html                               html htm shtml;
     text/css                                css;
     text/xml                                xml rss;
-    image/gif                               gif;
-    image/jpeg                              jpeg jpg;
-    application/x-javascript                js;
+    text/mathml                             mml;
     text/plain                              txt;
     text/x-component                        htc;
-    text/mathml                             mml;
+    image/gif                               gif;
+    image/jpeg                              jpeg jpg;
     image/png                               png;
     image/x-icon                            ico;
     image/x-jng                             jng;
@@ -17,6 +16,7 @@ types {
     application/java-archive                jar war ear;
     application/mac-binhex40                hqx;
     application/pdf                         pdf;
+    application/x-javascript                js;
     application/x-cocoa                     cco;
     application/x-java-archive-diff         jardiff;
     application/x-java-jnlp-file            jnlp;
