@@ -1,26 +1,16 @@
 version: '3.4'
 
 services:
-  proxy:
-    image: jwilder/nginx-proxy:alpine
-    links: ['nginx']
-    ports:
-      - 80:80
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-
   nginx:
     image: nginx:alpine
     links: ['mysql', 'php']
+    ports:
+      - 80:80
     volumes:
       - project:/project
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/mime.types:/etc/nginx/mime.types
-      - ./nginx/gzip.conf:/etc/nginx/gzip.conf
       - ./nginx/server.conf:/etc/nginx/server.conf
       - ./nginx/php.conf:/etc/nginx/php.conf
-    environment:
-      - VIRTUAL_HOST=*.localhost
+      - ./nginx/servers:/etc/nginx/conf.d
 
   mysql:
     image: mysql
@@ -44,7 +34,6 @@ services:
     volumes:
       - project:/project
       - ./php/php.ini:/usr/local/etc/php/php.ini
-      - ./php/www.conf:/usr/local/etc/php-fpm.d/www.conf
 
 volumes:
   project:
