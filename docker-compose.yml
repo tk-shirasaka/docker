@@ -1,16 +1,26 @@
 version: '3.4'
 
+x-php-common: &php-common
+  volumes:
+    - project:/project
+    - ./php/php.ini:/usr/local/etc/php/php.ini
+    - ./php/freetds.conf:/etc/freetds/freetds.conf
 services:
   nginx:
     image: nginx:alpine
     links: ['mysql', 'php']
     ports:
       - 80:80
+      - 443:443
     volumes:
       - project:/project
-      - ./nginx/server.conf:/etc/nginx/server.conf
-      - ./nginx/php.conf:/etc/nginx/php.conf
       - ./nginx/servers:/etc/nginx/conf.d
+      - ./nginx/server.conf:/etc/nginx/server.conf
+      - ./nginx/php7.conf:/etc/nginx/php7.conf
+      - ./nginx/php8.conf:/etc/nginx/php8.conf
+      - ./nginx/php5.conf:/etc/nginx/php5.conf
+      - ./nginx/server.key:/etc/ssl/server.key
+      - ./nginx/server.crt:/etc/ssl/server.crt
 
   mysql:
     image: mysql
@@ -25,15 +35,31 @@ services:
       - POSTGRES_USER=pgsql
       - POSTGRES_PASSWORD=pgsql
 
+  sqlserver-local:
+    image: mcr.microsoft.com/mssql/server
+    ports:
+      - 1433:1433
+    environment:
+      - SA_PASSWORD=password
+      - ACCEPT_EULA=Y
+
   redis:
     image: redis:alpine
 
-  php:
-    build: ./php
-    image: php-fpm
-    volumes:
-      - project:/project
-      - ./php/php.ini:/usr/local/etc/php/php.ini
+  php7:
+    build: ./php/v7
+    image: php7-fpm
+    <<: *php-common
+
+  php8:
+    build: ./php/v8
+    image: php8-fpm
+    <<: *php-common
+
+  php5:
+    build: php/v5
+    image: php5-fpm
+    <<: *php-common
 
 volumes:
   project:

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+apt-get update
+apt-get install -y freetds-dev
+ln -s /usr/lib/x86_64-linux-gnu/libsybdb.so /usr/lib
+docker-php-ext-install pdo_dblib

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+apt-get update
+apt-get install -y --no-install-recommends libzip-dev
+docker-php-ext-install zip
