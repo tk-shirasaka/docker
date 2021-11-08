@@ -8,7 +8,7 @@ x-php-common: &php-common
 services:
   nginx:
     image: nginx:alpine
-    links: ['mysql', 'php']
+    links: ['mysql', 'sqlserver', 'redis', 'php5', 'php7', 'php8']
     ports:
       - 80:80
       - 443:443
@@ -35,12 +35,12 @@ services:
       - POSTGRES_USER=pgsql
       - POSTGRES_PASSWORD=pgsql
 
-  sqlserver-local:
+  sqlserver:
     image: mcr.microsoft.com/mssql/server
     ports:
       - 1433:1433
     environment:
-      - SA_PASSWORD=password
+      - SA_PASSWORD=Pass0001
       - ACCEPT_EULA=Y
 
   redis:
