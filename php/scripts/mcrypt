@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ $(echo $PHP_VERSION | grep '^5') ]
+then
+    apt-get update
+    apt-get install -y --no-install-recommends libmcrypt-dev
+    docker-php-ext-install mcrypt
+else
+    echo 'Deprecated mcrypt'
+fi

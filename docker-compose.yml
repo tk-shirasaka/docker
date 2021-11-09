@@ -47,17 +47,23 @@ services:
     image: redis:alpine
 
   php7:
-    build: ./php/v7
+    build:
+      context: ./php
+      dockerfile: ./v7/Dockerfile
     image: php7-fpm
     <<: *php-common
 
   php8:
-    build: ./php/v8
+    build:
+      context: ./php
+      dockerfile: ./v8/Dockerfile
     image: php8-fpm
     <<: *php-common
 
   php5:
-    build: php/v5
+    build:
+      context: ./php
+      dockerfile: ./v5/Dockerfile
     image: php5-fpm
     <<: *php-common
 

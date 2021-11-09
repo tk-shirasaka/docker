@@ -1,4 +1,0 @@
-#!/bin/bash
-
-pecl install apcu
-docker-php-ext-enable apcu

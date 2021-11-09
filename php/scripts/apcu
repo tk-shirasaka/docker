@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ $(echo $PHP_VERSION | grep '^5') ]
+then
+    pecl install apcu-4.0.11
+else
+    pecl install apcu
+fi
+
+docker-php-ext-enable apcu

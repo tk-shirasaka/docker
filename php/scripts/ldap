@@ -1,0 +1,11 @@
+#!/bin/bash
+
+apt-get update
+apt-get install -y --no-install-recommends libldap-dev
+
+if [ $(echo $PHP_VERSION | grep '^5') ]
+then
+    docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/
+fi
+
+docker-php-ext-install ldap

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ $(echo $PHP_VERSION | grep '^5') ]
+then
+    pecl install redis-4.3.0
+else
+    pecl install redis
+fi
+
+docker-php-ext-enable redis

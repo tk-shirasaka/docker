@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ $(echo $PHP_VERSION | grep '^5') ]
+then
+    pecl install xdebug-2.5.5
+else
+    pecl install xdebug
+fi
+
+docker-php-ext-enable xdebug
