@@ -1,5 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
-apt-get update
-apt-get install -y --no-install-recommends libpng-dev
+eval "${PKG_INSTALL_CMD} libpng-dev"
 docker-php-ext-install gd

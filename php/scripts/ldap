@@ -1,7 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
-apt-get update
-apt-get install -y --no-install-recommends libldap-dev
+eval "${PKG_INSTALL_CMD} libldap-dev"
 
 if [ $(echo $PHP_VERSION | grep '^5') ]
 then

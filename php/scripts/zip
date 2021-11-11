@@ -1,5 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
-apt-get update
-apt-get install -y --no-install-recommends libzip-dev
+eval "${PKG_INSTALL_CMD} libzip-dev"
 docker-php-ext-install zip

@@ -1,5 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
-apt-get update
-apt-get install -y --no-install-recommends libpq-dev
+eval "${PKG_INSTALL_CMD} libpq-dev"
 docker-php-ext-install pdo_pgsql

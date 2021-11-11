@@ -1,17 +1,16 @@
-#!/bin/bash
+#!/bin/sh
 
-apt-get update
 if [ $(echo $PHP_VERSION | grep '^5') ]
 then
-    apt-get install -y --no-install-recommends freetds-dev
+    eval "${PKG_INSTALL_CMD} freetds-dev"
     docker-php-ext-configure pdo_dblib --with-libdir=lib/x86_64-linux-gnu/
     docker-php-ext-install pdo_dblib
 else
-    apt-get install -y --no-install-recommends unixodbc unixodbc-dev gnupg2
+    export ACCEPT_EULA=Y
+    eval "${PKG_INSTALL_CMD} unixodbc unixodbc-dev gnupg2"
     curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
     curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list
-    apt-get update
-    ACCEPT_EULA=Y apt-get install -y --no-install-recommends msodbcsql17 mssql-tools
+    eval "${PKG_INSTALL_CMD} msodbcsql17 mssql-tools"
     pecl install pdo_sqlsrv
     docker-php-ext-enable pdo_sqlsrv
 fi

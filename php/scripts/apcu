@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [ $(echo $PHP_VERSION | grep '^5') ]
 then
