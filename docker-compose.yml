@@ -4,7 +4,6 @@ x-php-common: &php-common
   volumes:
     - project:/project
     - ./php/php.ini:/usr/local/etc/php/php.ini
-    - ./php/freetds.conf:/etc/freetds/freetds.conf
 services:
   nginx:
     image: nginx:alpine
@@ -26,6 +25,7 @@ services:
     image: mysql
     volumes:
       - ./mysql/custom.cnf:/etc/mysql/conf.d/custom.cnf
+      - ./mysql/initdb:/docker-entrypoint-initdb.d
     environment:
       - MYSQL_ROOT_PASSWORD=mysql
 
