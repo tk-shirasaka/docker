@@ -1,7 +1,7 @@
-FROM unit:1.31.0-php7
+FROM unit:1.31.0-php8.2
 
 ADD scripts /scripts
 ARG PKG_INSTALL_CMD='apt-get update && apt-get install -y --no-install-recommends'
-ADD v7/externals /externals
+ADD v8.2/externals /externals
 
 RUN find /scripts -type f -exec sh {} \;

@@ -7,16 +7,22 @@ x-php-common: &php-common
 services:
   nginx:
     image: nginx:alpine
-    links: ['mysql', 'sqlserver', 'redis', 'php5', 'php7', 'php8']
+    links: ['mysql', 'sqlserver', 'redis', 'php5', 'php7', 'php8', 'php8.2']
+    networks:
+      default:
+        aliases:
+          - example.local
     ports:
       - 80:80
       - 443:443
     volumes:
       - project:/project
       - ./nginx/servers:/etc/nginx/conf.d
+      - ./nginx/base.conf:/etc/nginx/base.conf
       - ./nginx/server.conf:/etc/nginx/server.conf
       - ./nginx/php7.conf:/etc/nginx/php7.conf
       - ./nginx/php8.conf:/etc/nginx/php8.conf
+      - ./nginx/php8.2.conf:/etc/nginx/php8.2.conf
       - ./nginx/php5.conf:/etc/nginx/php5.conf
       - ./nginx/server.key:/etc/ssl/server.key
       - ./nginx/server.crt:/etc/ssl/server.crt
@@ -50,14 +56,24 @@ services:
     build:
       context: ./php
       dockerfile: ./v7/Dockerfile
-    image: php7-fpm
+    image: php7
+    command: ["unitd", "--no-daemon", "--control", "0.0.0.0:9876"]
     <<: *php-common
 
   php8:
     build:
       context: ./php
       dockerfile: ./v8/Dockerfile
-    image: php8-fpm
+    image: php8
+    command: ["unitd", "--no-daemon", "--control", "0.0.0.0:9876"]
+    <<: *php-common
+
+  php8.2:
+    build:
+      context: ./php
+      dockerfile: ./v8.2/Dockerfile
+    image: php8.2
+    command: ["unitd", "--no-daemon", "--control", "0.0.0.0:9876"]
     <<: *php-common
 
   php5:
