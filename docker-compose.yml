@@ -9,7 +9,7 @@ x-php-common: &php-common
 services:
   nginx:
     image: nginx:alpine
-    links: ['mysql', 'sqlserver', 'redis', 'php5', 'php7', 'php8.0', 'php8.2',]
+    links: ['mysql', 'sqlserver', 'redis', 'php5', 'php7', 'php8.0', 'php8.2', 'node18']
     networks:
       default:
         aliases:
@@ -26,6 +26,7 @@ services:
       - ./nginx/php7.conf:/etc/nginx/php7.conf
       - ./nginx/php8.0.conf:/etc/nginx/php8.0.conf
       - ./nginx/php8.2.conf:/etc/nginx/php8.2.conf
+      - ./nginx/node18.conf:/etc/nginx/node18.conf
       - ./nginx/server.key:/etc/ssl/server.key
       - ./nginx/server.crt:/etc/ssl/server.crt
 
@@ -53,6 +54,12 @@ services:
 
   redis:
     image: redis:alpine
+
+  node18:
+    image: unit:1.31.0-node18
+    volumes:
+      - project:/project
+    command: ["unitd", "--no-daemon", "--control", "0.0.0.0:9876"]
 
   php7:
     build:
