@@ -9,7 +9,7 @@ x-php-common: &php-common
 services:
   nginx:
     image: nginx:alpine
-    links: ['mysql', 'sqlserver', 'redis', 'dbms', 'php5', 'php7', 'php8.0', 'php8.2', 'node18']
+    links: ['mysql', 'sqlserver', 'redis', 'dbms', 'docker', 'php5', 'php7', 'php8.0', 'php8.2', 'node18']
     networks:
       default:
         aliases:
@@ -61,6 +61,16 @@ services:
       - /opt/cloudbeaver/workspace
     ports:
       - 8978:8978
+    restart: always
+
+  docker:
+    image: portainer/portainer
+    ports:
+      - 12345:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /data
+    restart: always
 
   node18:
     image: unit:1.31.0-node18
