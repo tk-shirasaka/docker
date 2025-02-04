@@ -64,7 +64,7 @@ services:
     restart: always
 
   docker:
-    image: portainer/portainer
+    image: portainer/portainer-ce
     ports:
       - 12345:9000
     volumes:

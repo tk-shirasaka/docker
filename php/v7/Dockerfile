@@ -1,4 +1,4 @@
-FROM unit:1.31.0-php7
+FROM nginx/unit:1.21.0-php7.3
 
 ADD scripts /scripts
 ARG PKG_INSTALL_CMD='apt-get update && apt-get install -y --no-install-recommends'
