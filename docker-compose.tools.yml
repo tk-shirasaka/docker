@@ -1,0 +1,17 @@
+services:
+  dbms:
+    image: dbeaver/cloudbeaver
+    volumes:
+      - /opt/cloudbeaver/workspace
+    ports:
+      - 8978:8978
+    restart: always
+
+  docker:
+    image: portainer/portainer-ce
+    ports:
+      - 12345:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /data
+    restart: always
