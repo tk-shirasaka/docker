@@ -1,0 +1,16 @@
+services:
+  mcp-hub:
+    image: samanhappy/mcphub
+    ports:
+      - 3000:3000
+      - 5000:5000
+    volumes:
+      - project:/project
+      - $HOME:$HOME
+      - $HOME/.config/develop/resources:/resources
+    environment:
+      - ADMIN_PASSWORD=admin
+      - SPEC_WORKFLOW_BIND_ADDRESS=0.0.0.0
+      - SPEC_WORKFLOW_ALLOW_EXTERNAL_ACCESS=true
+      - MCPHUB_SETTING_PATH=/resources/mcp/mcp_settings.json
+    restart: always
